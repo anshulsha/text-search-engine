@@ -92,4 +92,6 @@ You will see
   ## Features
     - Exact text search "'the king'"
     - Text search "the king"
-    - Add new post
+    - Sort post by name or dateLastEdited
+    - Pagination
+    - **Add new post
