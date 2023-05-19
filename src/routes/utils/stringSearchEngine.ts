@@ -1,16 +1,19 @@
 import posts from "../../dataset.json";
 
+// enum for  search fields
 enum SEARCH_PARAM {
   NAME = "name",
   IMAGE = "image",
   DESCRIPTION = "description",
 }
 
+// enum for sort fields
 enum SORT_PARAM {
   NAME = "name",
   DATELASTEDITED = "dateLastEdited",
 }
 
+// search engine interface with search method.
 interface SearchEngine<T> {
   search(
     key: string,
@@ -20,12 +23,15 @@ interface SearchEngine<T> {
   ): PaginationResult<T>;
 }
 
+// dataset interface
 interface Dataset {
   name: string;
   image: string;
   description: string;
   dateLastEdited: Date;
 }
+
+// post interface
 interface Post {
   name: string;
   image: string;
@@ -33,6 +39,7 @@ interface Post {
   dateLastEdited: Date;
 }
 
+// pagination interface
 interface PaginationResult<T> {
   data: T[];
   currentPage: number;
@@ -40,6 +47,7 @@ interface PaginationResult<T> {
   totalPosts: number;
 }
 
+// DB class with data and size as member, addNewData as method
 class DB<T> {
   protected data: T[] = [];
   protected size: number;
@@ -54,6 +62,7 @@ class DB<T> {
   }
 }
 
+// Hashmap generic class extends to DB class with hashMap as HashMap, loadData, getValue, setValue as protected methods, addNew as pulic method
 class HashMap<T> extends DB<T> {
   protected hashMap: { [key: string]: number[] } = {};
   constructor(dataset: T[], searchParams: SEARCH_PARAM[]) {
@@ -115,6 +124,7 @@ class HashMap<T> extends DB<T> {
   }
 }
 
+// StringSearchEngine class extends to HashMap and implements SearchEngine interface handle search functionality
 class StringSearchEngine
   extends HashMap<Dataset>
   implements SearchEngine<Dataset>
@@ -273,6 +283,7 @@ class StringSearchEngine
   }
 }
 
+// method to parse imported data into TS object.
 function parseJson() {
   const arr: Post[] = [];
   posts.map((item) => {
